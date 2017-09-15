@@ -158,8 +158,6 @@ public class UserDataDAO extends Activity {
                     Toast.LENGTH_SHORT).show();
         }
 
-
-
 //        如果要一次取多筆資料的話可以使用迴圈方式讀取:
 //        for(int i = 0 ; i < mCursor.getCount() ; i++ )
 //        {
@@ -174,24 +172,4 @@ public class UserDataDAO extends Activity {
 //        }
     }
 
-    // 第一次執行應用程式新增一些範例資料
-//    public void sampleData(Context context) {
-//        SharedPreferences sp =
-//                PreferenceManager.getDefaultSharedPreferences(context);
-//        boolean firstTime = sp.getBoolean("FIRST_TIME", true);
-//
-//        if (firstTime) {
-//            UserData p01 = new UserData(0, "AA");
-//            UserData p02 = new UserData(1, "BB");
-//            UserData p03 = new UserData(2, "CC");
-//
-//            insert(p01);
-//            insert(p02);
-//            insert(p03);
-//
-//            SharedPreferences.Editor editor = sp.edit();
-//            editor.putBoolean("FIEST_TIME", false);
-//            editor.commit();
-//       }
-    //}
 }

@@ -63,10 +63,16 @@ public class PlayActivity extends AppCompatActivity {
         mainTable = (TableLayout) findViewById(R.id.GameLayout);
         context = mainTable.getContext();
 
+        //帳號名稱設定
+        TextView textView = (TextView) findViewById(R.id.play_name);
+        textView.setText(getData("name"));
+
         timeView = (TextView) findViewById(R.id.time);
         GameTime(getDate("SaveTime"));
 
         initilizeGame(getDate("SaveLsRow"),getDate("SaveLsColume"));
+
+
     }
 
     private void initilizeGame(int rowCount,int columeCount) {
@@ -358,6 +364,14 @@ public class PlayActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         timeset.resume();
+    }
+
+    //設定檔讀取
+    public String getData(String key)
+    {
+        SharedPreferences spref = getApplication().getSharedPreferences(KEY, Context.MODE_PRIVATE);
+        String strValue = spref.getString(key, null);
+        return strValue;
     }
 
 }

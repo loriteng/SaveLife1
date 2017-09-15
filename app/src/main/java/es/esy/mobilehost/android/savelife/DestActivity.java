@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import es.esy.mobilehost.android.savelife.Data.TemporaryData;
 import es.esy.mobilehost.android.savelife.Data.UserDataDAO;
 
 
@@ -30,12 +31,16 @@ public class DestActivity extends AppCompatActivity {
     private Context context;
     public static final String KEY = "DataSet";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dest);
         context = this;
+
+        //帳號名稱設定
+        TextView textView = (TextView) findViewById(R.id.dest_name);
+        textView.setText(getData("name"));
+
         // 建立TsarySpinner的傾聽者物件
         TsarySpinner = (Spinner) findViewById(R.id.TimeSet);
         tsarylistAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tsary);
@@ -47,7 +52,6 @@ public class DestActivity extends AppCompatActivity {
         lsarylistAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lsary);
         LsarySpinner.setAdapter(lsarylistAdapter);
         LsarySet();
-        //refresh();
         findViewById(R.id.DCBtton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,19 +65,16 @@ public class DestActivity extends AppCompatActivity {
                 startActivity(new Intent().setClass(DestActivity.this, HomeActivity.class));
             }
         });
-
     }
 
     //時間設定
-
     private void TsarySet(){
         TsarySpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
             public void onItemSelected(AdapterView adapterView,
                                        View view, int position, long id){
                 if(TsarySpinner.getSelectedItem().toString().equals("30秒")){
                     try {
-                        int SET = 30;
-                        setData("SaveTime", SET);
+                        setData("SaveTime", 30);
                         //Toast.makeText(dest.this, SET+"" , Toast.LENGTH_SHORT).show();
                     }catch (Exception e) {
                         Toast.makeText(context, R.string.erro,
@@ -81,8 +82,7 @@ public class DestActivity extends AppCompatActivity {
                     }
                 }else if(TsarySpinner.getSelectedItem().toString().equals("60秒")){
                     try {
-                        int SET = 60 ;
-                        setData("SaveTime", SET);
+                        setData("SaveTime", 60);
                         //Toast.makeText(dest.this, SET+"" , Toast.LENGTH_SHORT).show();
                     }catch (Exception e) {
                         Toast.makeText(context, R.string.erro,
@@ -90,8 +90,7 @@ public class DestActivity extends AppCompatActivity {
                     }
                 }else if(TsarySpinner.getSelectedItem().toString().equals("90秒")){
                     try {
-                        int SET = 90 ;
-                        setData("SaveTime", SET);
+                        setData("SaveTime", 90);
                         //Toast.makeText(dest.this, SET+"" , Toast.LENGTH_SHORT).show();
                     }catch (Exception e) {
                         Toast.makeText(context, R.string.erro,
@@ -111,10 +110,7 @@ public class DestActivity extends AppCompatActivity {
                                        View view, int position, long id){
                 if(LsarySpinner.getSelectedItem().toString().equals("簡單")){
                     try {
-                        int rowCount = 5 ;
-                        int columeCount = 4;
-                        setData("SaveLsRow", rowCount);
-                        setData("SaveLsColume", columeCount);
+                        setRC(5,4);
                         //Toast.makeText(dest.this,rowCount+" X "+columeCount ,Toast.LENGTH_SHORT).show();
                     }catch (Exception e) {
                         Toast.makeText(context, R.string.erro,
@@ -122,10 +118,7 @@ public class DestActivity extends AppCompatActivity {
                     }
                 }else if(LsarySpinner.getSelectedItem().toString().equals("普通")){
                     try {
-                        int rowCount = 6 ;
-                        int columeCount = 4;
-                        setData("SaveLsRow", rowCount);
-                        setData("SaveLsColume", columeCount);
+                        setRC(6,4);
                         //Toast.makeText(dest.this, rowCount+" X "+columeCount , Toast.LENGTH_SHORT).show();
                     }catch (Exception e) {
                         Toast.makeText(context, R.string.erro,
@@ -133,10 +126,7 @@ public class DestActivity extends AppCompatActivity {
                     }
                 }else if(LsarySpinner.getSelectedItem().toString().equals("困難")){
                     try {
-                        int rowCount = 7 ;
-                        int columeCount = 4;
-                        setData("SaveLsRow", rowCount);
-                        setData("SaveLsColume", columeCount);
+                        setRC(7,4);
                         //Toast.makeText(dest.this, rowCount+" X "+columeCount , Toast.LENGTH_SHORT).show();
                     }catch (Exception e) {
                         Toast.makeText(context, R.string.erro,
@@ -147,6 +137,12 @@ public class DestActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView arg0) {
             }
         });
+    }
+
+    //設定卡牌數量
+    public void setRC(int rowCount,int columeCount){
+        setData("SaveLsRow", rowCount);
+        setData("SaveLsColume", columeCount);
     }
 
     //設定檔儲存
@@ -164,31 +160,5 @@ public class DestActivity extends AppCompatActivity {
         String strValue = spref.getString(key, null);
         return strValue;
     }
-
-    private void refresh() {
-        TextView dest_name_text = (TextView) findViewById(R.id.dest_name);
-        //DB資料的內容讀取 :
-        UserDataDAO mGDB = new UserDataDAO(this);
-        //取得資料庫的指標
-        Cursor mCursor = mGDB.getAllCursor();
-        //將指標滑動到第一筆，取第一筆資料
-        mCursor.moveToPosition(0);
-        //第一筆資料的姓名、年齡、性別、電話、地址資訊
-        String Name = mCursor.getString(mCursor.getColumnIndex("name"));
-        dest_name_text.setText(Name);
-//        如果要一次取多筆資料的話可以使用迴圈方式讀取:
-//        for(int i = 0 ; i < mCursor.getCount() ; i++ )
-//        {
-//            //利用for迴圈切換指標位置
-//            mCursor.moveToPosition(i);
-//            //每筆姓名、年齡、性別、電話、地址資訊
-//            String Name = mCursor.getString(mCursor.getColumnIndex("name"));
-//            String Age = mCursor.getString(mCursor.getColumnIndex("age"));
-//            String Sex = mCursor.getString(mCursor.getColumnIndex("sex"));
-//            String Phone = mCursor.getString(mCursor.getColumnIndex("phone"));
-//            String Address = mCursor.getString(mCursor.getColumnIndex("address"));
-//        }
-    }
-
 
 }
