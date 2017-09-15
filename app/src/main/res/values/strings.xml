@@ -1,0 +1,106 @@
+<resources>
+    <string name="title_activity_play_game">PlayGame</string>
+    <string name="app_name">SAVE LIFE</string>
+    <string name="LvSet">難度選擇</string>
+    <string name="TimeSet">時間選擇</string>
+    <string name="DCBtton">難度設定確認</string>
+    <string name="BHButton">返回首頁</string>
+    <string name="UserName">冒險者</string>
+    <string name="SetUp">設定</string>
+    <string name="reset">重新遊戲</string>
+    <string name="exit">結束遊戲</string>
+    <string name="GameFinish">遊戲結束!</string>
+    <string name="ok">確認</string>
+    <string name="cancel">取消</string>
+    <string name="erro">錯誤</string>
+    <string name="setup_name">Project_setup</string>
+    <string name="okay">確定</string>
+    <string name="clean_record">執行重置後，所有資料將會清除，確定執行嗎？</string>
+    <string name="no_idea">沒意見</string>
+
+    <string name="button_text1">資料重置</string>
+    <string name="button_text6">版權說明</string>
+    <string name="button_text7">遊戲設定</string>
+
+
+    <string name="main">讓我們來一起拯救瀕臨絕種動物吧!!</string>
+    <string name="guest">冒險家：</string>
+    <string name="username">請輸入您的名字</string>
+
+    <string name="user01">未創建帳號</string>
+    <string name="user02">未創建帳號</string>
+    <string name="user03">未創建帳號</string>
+    <string name="BEnter">進入遊戲</string>
+
+    <string name="intro">準備好展開奇妙旅程了嗎?</string>
+    <string name="Bstart">開始遊戲</string>
+    <string name="BCopyright">版權說明</string>
+    <string name="BGallery">動物圖鑑</string>
+    <string name="BSetup">遊戲設定</string>
+    <string name="BYoho">開發者選項</string>
+
+    <string-array name="gs">
+        <item>音量設定</item>
+        <item>資料重置</item>
+    </string-array>
+
+    <string-array name="crl">
+        <item>資料出處</item>
+        <item>製作團隊</item>
+    </string-array>
+
+    <string-array name="lsary">
+        <item>簡單(4x5)</item>
+        <item>普通(4x6)</item>
+        <item>困難(4x7)</item>
+    </string-array>
+
+    <string-array name="items">
+        <item>90</item>
+        <item>60</item>
+        <item>30</item>
+    </string-array>
+
+    <string-array name="tsary">
+        <item>90秒</item>
+        <item>60秒</item>
+        <item>30秒</item>
+    </string-array>
+    <string name="title_activity_new_user">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+
+    <!-- for gallery-->
+    <string name="logo1">logo1</string>
+    <string name="logo2">logo2</string>
+    <string name="logo3">logo3</string>
+    <string name="logo4">logo4</string>
+    <string name="logo5">logo5</string>
+    <string name="logo6">logo6</string>
+    <string name="logo7">logo7</string>
+    <string name="logo8">logo8</string>
+    <string name="logo9">logo9</string>
+    <string name="logo10">logo10</string>
+    <string name="logo11">logo11</string>
+    <string name="logo12">logo12</string>
+    <string name="logo13">logo13</string>
+    <string name="logo14">logo14</string>
+    <string name="logo15">logo15</string>
+    <string name="logo16">logo16</string>
+    <string name="logo17">logo17</string>
+    <string name="logo18">logo18</string>
+    <string name="logo19">logo19</string>
+
+</resources>
