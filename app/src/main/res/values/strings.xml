@@ -83,9 +83,9 @@
 
 
     <!-- for gallery-->
-    <string name="logo1">logo1</string>
-    <string name="logo2">logo2</string>
-    <string name="logo3">logo3</string>
+    <string name="logo1">我是大象</string>
+    <string name="logo2">我還是大象</string>
+    <string name="logo3">我是狼</string>
     <string name="logo4">logo4</string>
     <string name="logo5">logo5</string>
     <string name="logo6">logo6</string>
