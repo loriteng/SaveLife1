@@ -37,7 +37,7 @@ public class DestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dest);
         context = this;
 
-        //帳號名稱設定
+        ////帳號名稱設定
         TextView textView = (TextView) findViewById(R.id.dest_name);
         textView.setText(getData("name"));
 

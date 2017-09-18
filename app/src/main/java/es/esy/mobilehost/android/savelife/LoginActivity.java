@@ -52,7 +52,7 @@ public class LoginActivity extends Activity {
     private class Benter implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            //setContentView(view1);
+            ////setContentView(view1);
             RadioGroup Iwant = (RadioGroup) findViewById(R.id.radioGroup);
             UserDataDAO mGDB = new UserDataDAO(LoginActivity.this);
             Cursor mCursor = mGDB.getAllCursor();

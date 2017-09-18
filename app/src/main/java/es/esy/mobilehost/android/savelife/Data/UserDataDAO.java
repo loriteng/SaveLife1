@@ -15,7 +15,7 @@ import android.widget.Toast;
 public class UserDataDAO extends Activity {
     private AnimalData animalData;
 
-    // 表格名稱
+    //// 表格名稱
     public static final String TABLE_NAME = "pcd";
 
     // 編號表格欄位名稱，固定不變

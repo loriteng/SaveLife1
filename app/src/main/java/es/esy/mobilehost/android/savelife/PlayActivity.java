@@ -52,7 +52,7 @@ public class PlayActivity extends AppCompatActivity {
     public static final String KEY = "DataSet";
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {//
         super.onCreate(savedInstanceState);
         handler = new UpdateCardsHandler();
         loadImages();
