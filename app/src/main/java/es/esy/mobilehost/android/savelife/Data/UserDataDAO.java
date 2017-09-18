@@ -138,7 +138,7 @@ public class UserDataDAO extends Activity {
     }
 
 
-    public void getnameData(RadioButton radioButton, int i) {
+    public void rgetnameData(RadioButton radioButton, int i) {
 
         //DB資料的內容讀取 :
         UserDataDAO mGDB = new UserDataDAO(this);

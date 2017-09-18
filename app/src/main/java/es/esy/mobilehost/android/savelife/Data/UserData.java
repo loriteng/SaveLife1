@@ -16,7 +16,6 @@ public class UserData {
     public UserData(long id, String username){
         this.id = id;
         this.username = username;
-
     }
 
 

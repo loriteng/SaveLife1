@@ -43,9 +43,9 @@ public class LoginActivity extends Activity {
         });
 
         findViewById(R.id.Benter).setOnClickListener(new Benter());
-        userDataDAO.getnameData((RadioButton)findViewById(R.id.rBUser01), 0);
-        userDataDAO.getnameData((RadioButton)findViewById(R.id.rBUser02), 1);
-        userDataDAO.getnameData((RadioButton)findViewById(R.id.rBUser03), 2);
+        userDataDAO.rgetnameData((RadioButton)findViewById(R.id.rBUser01), 0);
+        userDataDAO.rgetnameData((RadioButton)findViewById(R.id.rBUser02), 1);
+        userDataDAO.rgetnameData((RadioButton)findViewById(R.id.rBUser03), 2);
     }
 
     //開始遊戲鈕的判斷事件
@@ -63,7 +63,7 @@ public class LoginActivity extends Activity {
                 //判斷選擇的項目資源 ID是不是所選擇的該項ID
                 if (Iwant.getCheckedRadioButtonId() == R.id.rBUser01) {
                     if (mCursor.moveToPosition(0)){
-                    userDataDAO.getnameData((RadioButton)findViewById(R.id.rBUser01), 0);
+                    userDataDAO.rgetnameData((RadioButton)findViewById(R.id.rBUser01), 0);
                     setData("name",mCursor.getString(mCursor.getColumnIndex("name")));
                     startActivity(new Intent().setClass(LoginActivity.this, HomeActivity.class));
                     finish();
@@ -73,7 +73,7 @@ public class LoginActivity extends Activity {
 
                 else if(Iwant.getCheckedRadioButtonId() == R.id.rBUser02){
                     if (mCursor.moveToPosition(1)){
-                    userDataDAO.getnameData((RadioButton)findViewById(R.id.rBUser02), 1);
+                    userDataDAO.rgetnameData((RadioButton)findViewById(R.id.rBUser02), 1);
                         setData("name",mCursor.getString(mCursor.getColumnIndex("name")));
                         startActivity(new Intent().setClass(LoginActivity.this, HomeActivity.class));
                     finish();
@@ -83,7 +83,7 @@ public class LoginActivity extends Activity {
 
                 else if(Iwant.getCheckedRadioButtonId() == R.id.rBUser03){
                     if (mCursor.moveToPosition(2)) {
-                        userDataDAO.getnameData((RadioButton) findViewById(R.id.rBUser03), 2);
+                        userDataDAO.rgetnameData((RadioButton) findViewById(R.id.rBUser03), 2);
                         setData("name",mCursor.getString(mCursor.getColumnIndex("name")));
                         startActivity(new Intent().setClass(LoginActivity.this, HomeActivity.class));
                         finish();
