@@ -83,10 +83,11 @@
 
 
     <!-- for gallery-->
-    <string name="logo1">logo1</string>
-    <string name="logo2">logo2</string>
-    <string name="logo3">logo3</string>
-    <string name="logo4">logo4</string>
+    <string name="logo1">我是大象</string>
+    <string name="logo2">我還是大象</string>
+    <string name="logo3">我是狼</string>
+    <string name="logo4">
+臺灣黑熊（學名：Ursus thibetanus formosanus、布農語：tumaz、賽夏語：som開發導致棲息地喪失，臺灣黑熊的數量在下降中。在1989年依照臺灣《野生動物保育法》，台灣黑熊被列為瀕危。2001年台灣黑熊被選為台灣最具代表性的野生動物，在不少台灣公司、企業、地方政府等，都選用台灣黑熊作為吉祥物、代表物，是著名的台灣意象之一。</string>
     <string name="logo5">logo5</string>
     <string name="logo6">logo6</string>
     <string name="logo7">logo7</string>

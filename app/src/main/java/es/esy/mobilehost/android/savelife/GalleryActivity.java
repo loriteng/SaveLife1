@@ -43,6 +43,7 @@ public class GalleryActivity extends AppCompatActivity {
                 // set an Intent to Another Activity
                 Intent intent = new Intent(GalleryActivity.this, GalleryDetail.class);
                 intent.putExtra("image", photoList[position]); // put image data in Intent
+                intent.putExtra("text", info[position]);
                 startActivity(intent); // start Intent
             }
         });

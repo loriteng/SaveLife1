@@ -16,7 +16,6 @@ public class GalleryAdapter extends BaseAdapter {
     Context context;
     //int logos[];
     int photoList[];
-    int infoList[];
     LayoutInflater inflter;
 
 
