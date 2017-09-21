@@ -9,12 +9,15 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.Toast;
-
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 
 public class SetupActivity extends Activity {
 
@@ -36,6 +39,13 @@ public class SetupActivity extends Activity {
 
         soundPool = new SoundPool(10, AudioManager.STREAM_SYSTEM,5);
         sound01 = soundPool.load(SetupActivity.this, R.raw.sound01, 0);
+
+        //電話狀態的Listener
+        MyPhoneStateListener myPhoneStateListener = new MyPhoneStateListener();
+        //取得TelephonyManager
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        //將電話狀態的Listener加到取得TelephonyManager
+        telephonyManager.listen(myPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
     }
 
     // Button click 事件回呼方法
@@ -287,6 +297,26 @@ public class SetupActivity extends Activity {
         }
     }
 
-
-
+    public class MyPhoneStateListener extends PhoneStateListener {
+        @Override
+        public void onCallStateChanged(int state, String phoneNumber) {
+            switch (state) {
+                //電話狀態是閒置的
+                case TelephonyManager.CALL_STATE_IDLE:
+                    mediaPlayer.start();
+                    break;
+                //電話狀態是接起的
+                case TelephonyManager.CALL_STATE_OFFHOOK:
+                    Toast.makeText(SetupActivity.this, "正接起電話…", Toast.LENGTH_LONG).show();
+                    break;
+                //電話狀態是響起的
+                case TelephonyManager.CALL_STATE_RINGING:
+                    Toast.makeText(SetupActivity.this, phoneNumber + "正打電話來…", Toast.LENGTH_LONG).show();
+                    mediaPlayer.pause();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }

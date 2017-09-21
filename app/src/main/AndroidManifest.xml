@@ -24,5 +24,5 @@
         <activity android:name=".SetupActivity" />
         <activity android:name=".MenuActivity"></activity>
     </application>
-
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
 </manifest>
