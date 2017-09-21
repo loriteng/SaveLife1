@@ -104,4 +104,14 @@
     <string name="logo18">logo18</string>
     <string name="logo19">logo19</string>
 
+    <string name="menu_gallery">動物圖鑑</string>
+    <string name="menu_volume">聲音調整</string>
+    <string name="menu_reset">資料重置</string>
+    <string name="menu_copyright">資料出處</string>
+    <string name="menu_developer">製作團隊</string>
+
+    <string name="reset_info">資料重置</string>
+    <string name="copyright_info">網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n\n網站名：\n網址：\n</string>
+    <string name="developer_info">崇憲\n\n崇文\n\n彥顯\n\n維隆\n\n琇晴</string>
+
 </resources>

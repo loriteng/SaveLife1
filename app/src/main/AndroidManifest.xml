@@ -22,6 +22,7 @@
         <activity android:name=".GalleryActivity" />
         <activity android:name=".GalleryDetail" />
         <activity android:name=".SetupActivity" />
+        <activity android:name=".MenuActivity"></activity>
     </application>
 
 </manifest>

@@ -97,33 +97,7 @@ public class SetupActivity extends Activity {
         builder.create().show();
     }
 
-// 2.多鍵式對話框
-//    private void showDialog_2() {
-//        AlertDialog.Builder builder = new Builder(context);
-//        builder.setTitle(R.string.button_text2);
-//        builder.setIcon(android.R.drawable.ic_dialog_info);
-//        builder.setMessage(R.string.like_android);
-//        builder.setPositiveButton(R.string.like, new OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        builder.setNegativeButton(R.string.not, new OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//            }
-//        });
-//        builder.setNegativeButton(R.string.no_idea, new OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//            }
-//        });
-//        builder.create().show();
-//    }
+
 
     // 遊戲設定 view
     private void gameSetUp() {
@@ -157,17 +131,6 @@ public class SetupActivity extends Activity {
 
     // 音量設定 View
     public void soundVolume() {
-//        mediaPlayer.prepare();
-//
-//        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//            @Override
-//            public void onPrepared(MediaPlayer mp) {
-//
-//                mediaPlayer.start();
-//                // 同步到播放進度函式
-//                new DelayThread().start();
-//            }
-//        });
 
         // 自定Layout
         LayoutInflater inflater = getLayoutInflater();
