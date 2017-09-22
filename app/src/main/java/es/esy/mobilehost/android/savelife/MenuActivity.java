@@ -30,6 +30,10 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //播放音效
+        soundPool = new SoundPool(4, AudioManager.STREAM_SYSTEM,0);
+        sound01 = soundPool.load(this, R.raw.sound01, 0);
     }
 
     //建立OptionMenu
@@ -183,6 +187,7 @@ public class MenuActivity extends AppCompatActivity {
 
 
     // 調整聲音大小
+
     private class MyVolControlOnSeekBarChangeListener implements SeekBar.OnSeekBarChangeListener {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress,
@@ -194,9 +199,9 @@ public class MenuActivity extends AppCompatActivity {
                 // 改變右聲道音量
                 case R.id.seekBar2 :
                     audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, progress, 0);
-                    float vol = progress/1F;
-                    soundPool.setVolume(sound01, vol, vol);
-                    soundPool.play(sound01, vol, vol, 0, 0, 1);
+                   float vol = progress/1.0F;
+                  soundPool.setVolume(sound01, vol, vol);
+                   soundPool.play(sound01, vol, vol, 0, 0, 1);
                     break;
             }
         }

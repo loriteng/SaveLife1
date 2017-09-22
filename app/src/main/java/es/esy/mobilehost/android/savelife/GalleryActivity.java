@@ -4,11 +4,13 @@ package es.esy.mobilehost.android.savelife;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-public class GalleryActivity extends AppCompatActivity {
+public class GalleryActivity extends MenuActivity {
 
     GridView simpleGrid;
 
@@ -47,6 +49,16 @@ public class GalleryActivity extends AppCompatActivity {
                 startActivity(intent); // start Intent
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 }
 

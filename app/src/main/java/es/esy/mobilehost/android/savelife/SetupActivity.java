@@ -283,7 +283,7 @@ public class SetupActivity extends Activity {
                 // 改變右聲道音量
                 case R.id.seekBar2 :
                     audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, progress, 0);
-                    float vol = progress/1F;
+                    float vol = progress/1.0F;
                     soundPool.setVolume(sound01, vol, vol);
                     soundPool.play(sound01, vol, vol, 0, 0, 1);
                     break;
