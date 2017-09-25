@@ -40,14 +40,18 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <!--&lt;!&ndash; 背景1 &ndash;&gt;-->
-    <!--<style name="bg01" >-->
-        <!--<item name="android:background">@mipmap/drawable</item>-->
-    <!--</style>-->
-    <!--&lt;!&ndash; 背景2 &ndash;&gt;-->
-    <!--<style name="bg02" >-->
-        <!--<item name="android:background">@drawable/axolotl</item>-->
-    <!--</style>-->
+    <!-- 登入頁背景 -->
+    <style name="login" >
+        <item name="android:background">@drawable/login</item>
+    </style>
+    <!-- 一般頁背景 -->
+    <style name="bg101" >
+        <item name="android:background">@drawable/bg101</item>
+    </style>
+    <!-- 遊戲頁背景 -->
+    <style name="game" >
+        <item name="android:background">@drawable/game</item>
+    </style>
 
 
 
