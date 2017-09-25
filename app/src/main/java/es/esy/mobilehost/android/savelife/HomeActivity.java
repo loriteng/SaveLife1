@@ -19,14 +19,19 @@ import android.widget.Toast;
 public class HomeActivity extends MenuActivity {
 
     private MediaPlayer mediaPlayer;
+    public static final String KEY = "DataSet";
+
     private SoundPool soundPool;
     private int sound01;
-    public static final String KEY = "DataSet";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        //設定按按鈕就出現音效聲
+        soundPool = new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);
+        sound01 = soundPool.load(this, R.raw.sound01, 1);
 
         //帳號名稱設定
         TextView textView = (TextView) findViewById(R.id.showName);
@@ -48,6 +53,7 @@ public class HomeActivity extends MenuActivity {
         hometoplaygame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                soundPool.play(sound01,1 ,1, 0, 0, 1); //點擊按鈕出現音效
                 startActivity(new Intent().setClass(HomeActivity.this, DestActivity.class));
             }
         });

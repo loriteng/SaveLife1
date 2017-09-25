@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +21,17 @@ public class LoginActivity extends Activity {
     private UserDataDAO userDataDAO;
     private static final String KEY = "DataSet";
 
+    private SoundPool soundPool;
+    private int sound01;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //設定按按鈕就出現音效聲
+        soundPool = new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);
+        sound01 = soundPool.load(this, R.raw.sound01, 1);
 
         // 建立資料存取物件
         userDataDAO = new UserDataDAO(this);
@@ -36,6 +45,7 @@ public class LoginActivity extends Activity {
         findViewById(R.id.newUser).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                soundPool.play(sound01,1 ,1, 0, 0, 1); //點擊按鈕出現音效
                 //setContentView(view2);
                 startActivity(new Intent().setClass(LoginActivity.this, NewUserActivity.class));
                 finish();
@@ -52,6 +62,8 @@ public class LoginActivity extends Activity {
     private class Benter implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+
+            soundPool.play(sound01,1 ,1, 0, 0, 1); //點擊按鈕出現音效
 
             ////setContentView(view1);
             RadioGroup Iwant = (RadioGroup) findViewById(R.id.radioGroup);
