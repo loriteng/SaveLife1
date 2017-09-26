@@ -26,7 +26,7 @@ public class GalleryActivity extends MenuActivity {
             R.string.logo5, R.string.logo6, R.string.logo7, R.string.logo8, R.string.logo9,
             R.string.logo10, R.string.logo11, R.string.logo12, R.string.logo13,
             R.string.logo14,R.string.logo15, R.string.logo16, R.string.logo17,
-            R.string.logo18, R.string.logo19};
+            R.string.logo18, R.string.logo19,R.string.logo20};
 
 
 
