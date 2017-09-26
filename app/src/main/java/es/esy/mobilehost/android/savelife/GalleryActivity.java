@@ -22,11 +22,11 @@ public class GalleryActivity extends MenuActivity {
     R.drawable.p15, R.drawable.p16, R.drawable.p17,
     R.drawable.p18, R.drawable.p19};
 
-    int info[] = {R.string.logo1, R.string.logo2, R.string.logo3, R.string.logo4,
+    int info[] = {R.string.logo0,R.string.logo1, R.string.logo2, R.string.logo3, R.string.logo4,
             R.string.logo5, R.string.logo6, R.string.logo7, R.string.logo8, R.string.logo9,
             R.string.logo10, R.string.logo11, R.string.logo12, R.string.logo13,
             R.string.logo14,R.string.logo15, R.string.logo16, R.string.logo17,
-            R.string.logo18, R.string.logo19,R.string.logo20};
+            R.string.logo18, R.string.logo19};
 
 
 
