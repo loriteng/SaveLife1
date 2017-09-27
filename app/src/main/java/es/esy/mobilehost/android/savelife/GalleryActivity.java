@@ -1,52 +1,59 @@
 package es.esy.mobilehost.android.savelife;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import es.esy.mobilehost.android.savelife.Data.UserDataDAO;
+
 public class GalleryActivity extends MenuActivity {
+    static GalleryActivity galleryActivity;
 
-    GridView simpleGrid;
+    private GridView simpleGrid;
+    public static final String KEY = "DataSet";
+    //DB資料的內容讀取 :
+    UserDataDAO mGDB = new UserDataDAO(this);
+    //取得資料庫的指標
+    Cursor mCursor = mGDB.getAllCursor();
 
-    int photoList[] ={R.drawable.p0, R.drawable.p1, R.drawable.p2,
-    R.drawable.p3, R.drawable.p4, R.drawable.p5,
-    R.drawable.p6, R.drawable.p7, R.drawable.p8,
-    R.drawable.p9, R.drawable.p10, R.drawable.p11,
-    R.drawable.p12, R.drawable.p13, R.drawable.p14,
-    R.drawable.p15, R.drawable.p16, R.drawable.p17,
-    R.drawable.p18, R.drawable.p19};
-
-    int info[] = {R.string.logo0,R.string.logo1, R.string.logo2, R.string.logo3, R.string.logo4,
-            R.string.logo5, R.string.logo6, R.string.logo7, R.string.logo8, R.string.logo9,
-            R.string.logo10, R.string.logo11, R.string.logo12, R.string.logo13,
-            R.string.logo14,R.string.logo15, R.string.logo16, R.string.logo17,
-            R.string.logo18, R.string.logo19};
-
-
+    int info[] = {
+            R.string.logo1, R.string.logo2, R.string.logo3, R.string.logo4,
+            R.string.logo5, R.string.logo6, R.string.logo7, R.string.logo8,
+            R.string.logo9, R.string.logo10, R.string.logo11, R.string.logo12,
+            R.string.logo13, R.string.logo14,R.string.logo15, R.string.logo16,
+            R.string.logo17, R.string.logo18, R.string.logo19,R.string.logo20};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
-        simpleGrid = (GridView) findViewById(R.id.simpleGridView); // init GridView
-        // Create an object of CustomAdapter and set Adapter to GirdView
-        GalleryAdapter customAdapter = new GalleryAdapter(getApplicationContext(), photoList);
+        galleryActivity = this;
+        mCursor.moveToPosition(getDate("id"));
+        simpleGrid = (GridView) findViewById(R.id.simpleGridView);
+        GalleryAdapter customAdapter = new GalleryAdapter(getApplicationContext(), photoList());
         simpleGrid.setAdapter(customAdapter);
-        // implement setOnItemClickListener event on GridView
+
         simpleGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // set an Intent to Another Activity
-                Intent intent = new Intent(GalleryActivity.this, GalleryDetail.class);
-                intent.putExtra("image", photoList[position]); // put image data in Intent
-                intent.putExtra("text", info[position]); // put image info data in Intent
-                startActivity(intent); // start Intent
+                if(photoList()[position] != R.drawable.galleryback) {
+                    Intent intent = new Intent(GalleryActivity.this, GalleryDetail.class);
+                    intent.putExtra("image", photoList()[position]); // put image data in Intent
+                    intent.putExtra("text", info[position]); // put image info data in Intent
+                    startActivity(intent); // start Intent
+                }else{
+
+                }
             }
         });
     }
@@ -60,6 +67,55 @@ public class GalleryActivity extends MenuActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
+
+    public int getDate(String key) {
+        SharedPreferences spref = getApplication().getSharedPreferences(KEY, Context.MODE_PRIVATE);
+        int strValue = spref.getInt(key, 0);
+        return strValue;
+    }
+    public String getStringData(String key) {
+        SharedPreferences spref = getApplication().getSharedPreferences(KEY, Context.MODE_PRIVATE);
+        String strValue = spref.getString(key, null);
+        return strValue;
+        }
+
+    public int[] photoList(){
+
+        int photoList[] ={
+                getStringData("a01").equals("0") ? R.drawable.galleryback : R.drawable.p0,
+                getStringData("a02").equals("0") ? R.drawable.galleryback : R.drawable.p1,
+                getStringData("a03").equals("0") ? R.drawable.galleryback : R.drawable.p2,
+                getStringData("a04").equals("0") ? R.drawable.galleryback : R.drawable.p3,
+                getStringData("a05").equals("0")? R.drawable.galleryback : R.drawable.p4,
+                getStringData("a06").equals("0") ? R.drawable.galleryback : R.drawable.p5,
+                getStringData("a07").equals("0") ? R.drawable.galleryback : R.drawable.p6,
+                getStringData("a08").equals("0") ? R.drawable.galleryback : R.drawable.p7,
+                getStringData("a09").equals("0") ? R.drawable.galleryback : R.drawable.p8,
+                getStringData("a10").equals("0") ? R.drawable.galleryback : R.drawable.p9,
+                getStringData("a11").equals("0") ? R.drawable.galleryback : R.drawable.p10,
+                getStringData("a12").equals("0")? R.drawable.galleryback : R.drawable.p11,
+                getStringData("a13").equals("0") ? R.drawable.galleryback : R.drawable.p12 ,
+                getStringData("a14").equals("0") ? R.drawable.galleryback : R.drawable.p13,
+                getStringData("a15").equals("0") ? R.drawable.galleryback : R.drawable.p14 ,
+                getStringData("a16").equals("0") ? R.drawable.galleryback : R.drawable.p15,
+                getStringData("a17").equals("0") ? R.drawable.galleryback : R.drawable.p16,
+                getStringData("a18").equals("0") ? R.drawable.galleryback : R.drawable.p17,
+                getStringData("a19").equals("0") ? R.drawable.galleryback : R.drawable.p18,
+                getStringData("a20").equals("0") ? R.drawable.galleryback : R.drawable.p19,
+        };
+        return photoList;
+    }
+
+    //防止玩家按返回鍵時回上頁的Layout, 讓此Layout的返回鍵變成跟home鍵功能一樣
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        return super.onKeyDown(keyCode, event);
+
+    }
+
+
 }
+
 
 

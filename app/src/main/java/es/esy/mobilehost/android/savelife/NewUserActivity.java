@@ -14,7 +14,6 @@ import es.esy.mobilehost.android.savelife.Data.UserDataDAO;
 public class NewUserActivity extends Activity {
 
     private EditText newUersname_edit;
-    private UserData userdata;
 
     // 資料庫物件
     private UserDataDAO userDataDAO;
@@ -23,33 +22,18 @@ public class NewUserActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newuser);
-
+        processViews();
         // 取得資料庫物件
         userDataDAO = new UserDataDAO(this);
-        Intent intent = getIntent();
-        // 讀取修改資料的編號
-        long id = intent.getLongExtra("id", -1);
-        // 取得指定編號的物件
-        userdata = userDataDAO.get(id);
-        processViews();
-
     }
 
     private void processViews() {
-
         newUersname_edit = (EditText) findViewById(R.id.username__edit);
-
     }
 
     public void clickOk(View view) {
-        String newUersname = newUersname_edit.getText().toString();
-        UserData userData = new UserData();
-        // 把讀取的資料設定給物件
-        userData.setusername(newUersname);
 
-        // 新增
-        userData = userDataDAO.insert(userData);
-
+        NewUersData();
         // 顯示修改成功
         Toast.makeText(this, "新增帳號成功!", Toast.LENGTH_SHORT).show();
         Intent intent = getIntent();
@@ -65,5 +49,35 @@ public class NewUserActivity extends Activity {
         startActivity(new Intent().setClass(NewUserActivity.this, LoginActivity.class));
         finish();
     }
+
+    public void NewUersData(){
+        String newUersname = newUersname_edit.getText().toString();
+        UserData userData = new UserData();
+        // 把讀取的資料設定給物件
+        userData.setUsername(newUersname);
+        userData.setAnimalCard_1("0");
+        userData.setAnimalCard_2("0");
+        userData.setAnimalCard_3("0");
+        userData.setAnimalCard_4("0");
+        userData.setAnimalCard_5("0");
+        userData.setAnimalCard_6("0");
+        userData.setAnimalCard_7("0");
+        userData.setAnimalCard_8("0");
+        userData.setAnimalCard_9("0");
+        userData.setAnimalCard_10("0");
+        userData.setAnimalCard_11("0");
+        userData.setAnimalCard_12("0");
+        userData.setAnimalCard_13("0");
+        userData.setAnimalCard_14("0");
+        userData.setAnimalCard_15("0");
+        userData.setAnimalCard_16("0");
+        userData.setAnimalCard_17("0");
+        userData.setAnimalCard_18("0");
+        userData.setAnimalCard_19("0");
+        userData.setAnimalCard_20("0");
+        // 新增
+        userDataDAO.insert(userData);
+    }
+
 
 }

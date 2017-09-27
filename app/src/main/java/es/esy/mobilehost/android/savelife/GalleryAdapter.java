@@ -11,14 +11,11 @@ import android.widget.ImageView;
  * Created by Administrator on 2017/9/13.
  */
 
-
 public class GalleryAdapter extends BaseAdapter {
     Context context;
     //int logos[];
     int photoList[];
     LayoutInflater inflter;
-
-
 
     public GalleryAdapter(Context applicationContext, int[] photoList) {
         this.context = applicationContext;

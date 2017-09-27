@@ -70,9 +70,8 @@
         android:layout_height="wrap_content"
         android:text="@string/Bstart"
         android:id="@+id/BStart"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="82dp" />
+        android:layout_below="@+id/viewflipper"
+        android:layout_centerHorizontal="true" />
 
 
     <!--<Button-->

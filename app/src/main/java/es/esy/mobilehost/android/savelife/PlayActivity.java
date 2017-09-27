@@ -1,11 +1,10 @@
 package es.esy.mobilehost.android.savelife;
-
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,13 +27,13 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import es.esy.mobilehost.android.savelife.Data.UserData;
+import es.esy.mobilehost.android.savelife.Data.UserDataDAO;
 import es.esy.mobilehost.android.savelife.PlayGame.AnimalCard;
 import es.esy.mobilehost.android.savelife.PlayGame.GameTime;
 
 
 public class PlayActivity extends AppCompatActivity {
-    //private static int			rowCount	= 7;
-    //private static int			columeCount	= 4;
     private static int			items;
     private Context context;
     private Drawable backImage;
@@ -50,9 +49,13 @@ public class PlayActivity extends AppCompatActivity {
     private TextView timeView;
     private GameTime timeset;
     public static final String KEY = "DataSet";
+    private UserDataDAO userDataDAO;
+    private UserData userData;
+    private String A = "";
+    ArrayList<Integer> list = new ArrayList<Integer>();
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {//
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         handler = new UpdateCardsHandler();
         loadImages();
@@ -63,16 +66,27 @@ public class PlayActivity extends AppCompatActivity {
         mainTable = (TableLayout) findViewById(R.id.GameLayout);
         context = mainTable.getContext();
 
+        findViewById(R.id.SetUp).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timeset.cancel();
+                winDialog();
+            }
+        });
+
+        // 取得資料庫物件
+        userDataDAO = new UserDataDAO(this);
+
+        // 取得指定編號的物件
+        userData = userDataDAO.get(getDate("id"));
+
         //帳號名稱設定
         TextView textView = (TextView) findViewById(R.id.play_name);
-        textView.setText(getData("name"));
+        textView.setText("冒險家:"+ getStringData("name"));
 
         timeView = (TextView) findViewById(R.id.time);
         GameTime(getDate("SaveTime"));
-
         initilizeGame(getDate("SaveLsRow"),getDate("SaveLsColume"));
-
-
     }
 
     private void initilizeGame(int rowCount,int columeCount) {
@@ -111,9 +125,8 @@ public class PlayActivity extends AppCompatActivity {
 
     private void loadCards(int rowCount,int columeCount) {
         try {
-
+            //卡排生成數量 例: 6*4
             int size = rowCount * columeCount;
-            ArrayList<Integer> list = new ArrayList<Integer>();
 
             for (int i = 0; i < size; i++) {
                 list.add(new Integer(i)); // 加入所有卡片編號
@@ -146,7 +159,6 @@ public class PlayActivity extends AppCompatActivity {
         }
         catch (Exception e) {
         }
-
     }
 
     private TableRow createRow(int y) {
@@ -180,6 +192,7 @@ public class PlayActivity extends AppCompatActivity {
             }
         }
 
+        //點選時 卡背轉卡面 是否選到同張卡片
         private void turnCard(Button button, int x, int y) {
             button.setBackgroundDrawable(images.get(cards[x][y]));
 
@@ -228,18 +241,9 @@ public class PlayActivity extends AppCompatActivity {
                 pairCount++;
                 if (pairCount >= items) {
                     timeset.cancel();
-
-                    Button button = new Button(PlayActivity.this);
-                    button.setText("確定");
-                    final Dialog dialog = new Dialog(PlayActivity.this);
-                    dialog.setTitle("恭喜你完成所有配對！");
-                    dialog.setContentView(button);
-                    dialog.show();
-                    button.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
+                    //勝利後結算
+                    winDialog();
+                    A="";
                 }
             }
             else {
@@ -254,34 +258,29 @@ public class PlayActivity extends AppCompatActivity {
 
     private static final int	MenuGroupID = 0;
     private static final int	MenuItemID1 = 0;
-    private static final int	MenuItemID2	 = 1;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        menu.add(MenuGroupID, MenuItemID1, Menu.NONE, R.string.reset);
-        menu.add(MenuGroupID, MenuItemID2, Menu.NONE, R.string.exit);
+        menu.add(MenuGroupID, MenuItemID1, Menu.NONE, "重新遊戲");
         return true;
     }
 
+    //右上角選擇設定
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case MenuItemID1: // 重新遊戲
-                initilizeGame(getDate("SaveLsRow"),getDate("SaveLsColume"));
-                return true;
-
-            case MenuItemID2: // 關閉程式
                 this.finish();
                 return true;
         }
         return false;
     }
+
     //遊戲時間計算
     private void GameTime(int time) {
         //設定時間
         timeset = new GameTime(time*1000,1000) {
-
             public void onTick(long millisUntilFinished, int percent) {
                 long minute;
                 minute = (millisUntilFinished / 60000);
@@ -302,40 +301,10 @@ public class PlayActivity extends AppCompatActivity {
                                 ":" +
                                 String.format("%02d", 0 / 1000)
                 );
-                GameFinish();
+                //時間到 任務失敗訊息
+                loseDialog();
             }
         }.start();
-    }
-
-    private void GameFinish() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(R.string.GameFinish);
-        builder.setIcon(android.R.drawable.ic_dialog_info);
-        builder.setMessage(R.string.exit);
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                finish();
-            }
-        });
-        builder.create().show();
-    }
-    //寫入DateSet.xml暫存資料檔
-    public void setDate(String key, int value)
-    {
-        SharedPreferences spref = getApplication().getSharedPreferences(KEY, Context.MODE_PRIVATE);
-        SharedPreferences.Editor PE = spref.edit();
-        PE.putInt(key, value);
-        PE.commit();
-    }
-
-    //取得DateSet.xml暫存資料檔
-    public int getDate(String key)
-    {
-        SharedPreferences spref = getApplication().getSharedPreferences(KEY, Context.MODE_PRIVATE);
-        int strValue = spref.getInt(key, 0);
-        return strValue;
     }
 
     //防止玩家按返回鍵時回上頁的Layout, 讓此Layout的返回鍵變成跟home鍵功能一樣
@@ -347,7 +316,6 @@ public class PlayActivity extends AppCompatActivity {
             intentHome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intentHome);
             return true;
-
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -366,13 +334,308 @@ public class PlayActivity extends AppCompatActivity {
         timeset.resume();
     }
 
-    //設定檔讀取
-    public String getData(String key)
-    {
+    //勝利結算訊息
+    public void winDialog() {
+        animalsave();
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+        builder1.setTitle("開啟以下圖鑑:");
+        builder1.setMessage(A);
+        builder1.setIcon(android.R.drawable.btn_star_big_on);
+
+        String option2[] = {"繼續遊戲", "回首頁", "前往圖鑑"};
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(context);
+        builder2.setTitle("勝利");
+        builder2.setIcon(android.R.drawable.btn_star_big_on);
+        // 列表選項（注意：不可以與builder.setMessage()同時調用）
+        builder2.setItems(option2, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        startActivity(new Intent().setClass(PlayActivity.this, DestActivity.class));
+                        finish();
+                        break;
+                    case 1:
+                        startActivity(new Intent().setClass(PlayActivity.this, HomeActivity.class));
+                        finish();
+                        break;
+                    case 2:
+                        startActivity(new Intent().setClass(PlayActivity.this, GalleryActivity.class));
+                        finish();
+                        break;
+                }
+            }
+        });
+        builder2.create().show();
+        builder1.create().show();
+    }
+
+    //任務失敗訊息（時間到）
+    public void loseDialog() {
+        String option[] = {"繼續遊戲", "回首頁", "前往圖鑑"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("任務失敗!");
+        builder.setIcon(android.R.drawable.btn_star_big_off);
+        // 列表選項（注意：不可以與builder.setMessage()同時調用）
+        builder.setItems(option, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        startActivity(new Intent().setClass(PlayActivity.this, DestActivity.class));
+                        break;
+                    case 1:
+                        startActivity(new Intent().setClass(PlayActivity.this, HomeActivity.class));
+                        break;
+                    case 2:
+                        startActivity(new Intent().setClass(PlayActivity.this, GalleryActivity.class));
+                        break;
+                }
+            }
+        });
+        builder.create().show();
+    }
+
+    //判斷開啟幾個動物欄位
+    public void animalsave(){
+        int setTtime = getDate("SaveTime");
+        int setLsary = getDate("SaveLsRow") * getDate("SaveLsColume");
+        Random r = new Random();
+
+        switch (setTtime){
+            case 60:
+                switch (setLsary){
+                    case 20:
+                        animalcardget(r.nextInt(20)+1);
+                        break;
+                    case 24:
+                        for (int i = 1; i <= 4; i++){
+                            animalcardget(r.nextInt(20)+1);
+                        }
+                        break;
+                    case 28:
+                        for (int i = 1; i <= 7; i++){
+                            animalcardget(r.nextInt(20)+1);
+                        }
+                        break;
+                }
+                break;
+            case 45:
+                switch (setLsary){
+                    case 20:
+                        for (int i = 1; i <= 2; i++){
+                            animalcardget(r.nextInt(20)+1);
+                        }
+                        break;
+                    case 24:
+                        for (int i = 1; i <= 8; i++){
+                            animalcardget(r.nextInt(20)+1);
+                        }
+                        break;
+                    case 28:
+                        for (int i = 1; i <= 6; i++){
+                            animalcardget(r.nextInt(20)+1);
+                        }
+                        break;
+                }
+                break;
+            case 30:
+                switch (setLsary){
+                    case 20:
+                        for (int i = 1; i <= 3; i++){
+                            animalcardget(r.nextInt(20)+1);
+                        }
+                        break;
+                    case 24:
+                        for (int i = 1; i <= 6; i++){
+                            animalcardget(r.nextInt(20)+1);
+                        }
+                        break;
+                    case 28:
+                        for (int i = 1; i <= 9; i++){
+                            animalcardget(r.nextInt(20)+1);
+                        }
+                        break;
+                }
+                break;
+        }
+    }
+
+    //判斷開啟那個動物欄位
+    public void animalcardget(int i){
+
+        if (i!=0) {
+            switch (i) {
+                case 1:
+                    userData.setAnimalCard_1("1");
+                    setIntData("a01",1);
+                    A = "石虎\n";
+                    break;
+                case 2:
+                    userData.setAnimalCard_2("2");
+                    setIntData("a02",2);
+                    A = A + "歐亞水獺\n";
+                    break;
+                case 3:
+                    userData.setAnimalCard_3("3");
+                    setIntData("a03",3);
+                    A = A + "台灣長鬃山羊\n";
+                    break;
+                case 4:
+                    userData.setAnimalCard_4("4");
+                    setIntData("a04",4);
+                    A = A + "臺灣水鹿\n";
+                    break;
+                case 5:
+                    userData.setAnimalCard_5("5");
+                    setIntData("a05",5);
+                    A = A + "食蟹獴\n ";
+                    break;
+                case 6:
+                    userData.setAnimalCard_6("6");
+                    setIntData("a06",6);
+                    A = A + "麝貓\n";
+                    break;
+                case 7:
+                    userData.setAnimalCard_7("7");
+                    setIntData("a07",7);
+                    A = A + "台灣穿山甲\n";
+                    break;
+                case 8:
+                    userData.setAnimalCard_8("8");
+                    setIntData("a08",8);
+                    A = A + "山羌\n";
+                    break;
+                case 9:
+                    userData.setAnimalCard_9("9");
+                    setIntData("a09",9);
+                    A = A + "台灣小黃鼠狼\n";
+                    break;
+                case 10:
+                    userData.setAnimalCard_10("10");
+                    setIntData("a10",10);
+                    A = A + "果子狸\n";
+                    break;
+                case 11:
+                    userData.setAnimalCard_11("11");
+                    setIntData("a11",11);
+                    A = A + "臺灣獼猴\n";
+                    break;
+                case 12:
+                    userData.setAnimalCard_12("12");
+                    setIntData("a12",12);
+                    A = A + "抹香鯨\n";
+                    break;
+                case 13:
+                    userData.setAnimalCard_13("13");
+                    setIntData("a13",13);
+                    A = A + "黑面琵鷺\n ";
+                    break;
+                case 14:
+                    userData.setAnimalCard_14("14");
+                    setIntData("a14",14);
+                    A = A + "短尾信天翁\n";
+                    break;
+                case 15:
+                    userData.setAnimalCard_15("15");
+                    setIntData("a15",15);
+                    A = A + "藍腹鷳\n";
+                    break;
+                case 16:
+                    userData.setAnimalCard_16("16");
+                    setIntData("a16",16);
+                    A = A + "環頸雉\n";
+                    break;
+                case 17:
+                    userData.setAnimalCard_17("17");
+                    setIntData("a17",17);
+                    A = A + "蘭嶼角鴞\n";
+                    break;
+                case 18:
+                    userData.setAnimalCard_18("18");
+                    setIntData("a18",18);
+                    A = A + "帝雉\n";
+                    break;
+                case 19:
+                    userData.setAnimalCard_19("19");
+                    setIntData("a19",19);
+                    A = A + "台灣雲豹\n";
+                    break;
+                case 20:
+                    userData.setAnimalCard_20("20");
+                    setIntData("a20",20);
+                    A = A + "臺灣黑熊\n";
+                    break;
+            }
+            userDataDAO.update(userData);
+            setUserData(getDate("Pid"));
+        }else{}
+    }
+
+    //儲存選擇的帳號個別資料
+    public void setUserData(int i) {
+        //DB資料的內容讀取 :
+        UserDataDAO userDataDAO = new UserDataDAO(this);
+        Cursor mCursor = userDataDAO.getAllCursor();
+
+        try {
+            if (!mCursor.moveToPosition(i)) {
+            } else {
+                setStringData("name",mCursor.getString(mCursor.getColumnIndex("name")));
+                setStringData("a01",mCursor.getString(mCursor.getColumnIndex("a01")));
+                setStringData("a02",mCursor.getString(mCursor.getColumnIndex("a02")));
+                setStringData("a03",mCursor.getString(mCursor.getColumnIndex("a03")));
+                setStringData("a04",mCursor.getString(mCursor.getColumnIndex("a04")));
+                setStringData("a05",mCursor.getString(mCursor.getColumnIndex("a05")));
+                setStringData("a06",mCursor.getString(mCursor.getColumnIndex("a06")));
+                setStringData("a07",mCursor.getString(mCursor.getColumnIndex("a07")));
+                setStringData("a08",mCursor.getString(mCursor.getColumnIndex("a08")));
+                setStringData("a09",mCursor.getString(mCursor.getColumnIndex("a09")));
+                setStringData("a10",mCursor.getString(mCursor.getColumnIndex("a10")));
+                setStringData("a11",mCursor.getString(mCursor.getColumnIndex("a11")));
+                setStringData("a12",mCursor.getString(mCursor.getColumnIndex("a12")));
+                setStringData("a13",mCursor.getString(mCursor.getColumnIndex("a13")));
+                setStringData("a14",mCursor.getString(mCursor.getColumnIndex("a14")));
+                setStringData("a15",mCursor.getString(mCursor.getColumnIndex("a15")));
+                setStringData("a16",mCursor.getString(mCursor.getColumnIndex("a16")));
+                setStringData("a17",mCursor.getString(mCursor.getColumnIndex("a17")));
+                setStringData("a18",mCursor.getString(mCursor.getColumnIndex("a18")));
+                setStringData("a19",mCursor.getString(mCursor.getColumnIndex("a19")));
+                setStringData("a20",mCursor.getString(mCursor.getColumnIndex("a20")));
+                setIntData("SaveTime", 0);
+                setIntData("SaveLsColume", 0);
+                setIntData("SaveLsRow", 0);
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "錯誤",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void setIntData(String key, int value) {
+        SharedPreferences spref = getApplication().getSharedPreferences(KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor PE = spref.edit();
+        PE.putInt(key, value);
+        PE.commit();
+    }
+    public int getDate(String key) {
+        SharedPreferences spref = getApplication().getSharedPreferences(KEY, Context.MODE_PRIVATE);
+        int strValue = spref.getInt(key, 0);
+        return strValue;
+    }
+    public void setStringData(String key, String value) {
+        SharedPreferences spref = getApplication().getSharedPreferences(KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor PE = spref.edit();
+        PE.putString(key, value);
+        PE.commit();
+    }
+    public String getStringData(String key) {
         SharedPreferences spref = getApplication().getSharedPreferences(KEY, Context.MODE_PRIVATE);
         String strValue = spref.getString(key, null);
         return strValue;
     }
-
 }
+
+
+
 

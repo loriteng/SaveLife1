@@ -17,42 +17,45 @@
         android:text="@string/main"
         android:id="@+id/main"
         android:textSize="30dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp" />
+        android:layout_above="@+id/radioGroup"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="進入遊戲"
         android:id="@+id/Benter"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        android:layout_alignTop="@+id/newUser"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/guest"
         android:id="@+id/guest"
-        android:textSize="30dp" />
+        android:textSize="30dp"
+        android:layout_above="@+id/main"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="新增帳號"
         android:id="@+id/newUser"
-        android:layout_above="@+id/Benter"
-        android:layout_alignLeft="@+id/Benter"
-        android:layout_alignStart="@+id/Benter" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/main"
         android:id="@+id/radioGroup"
+        android:layout_above="@+id/Benter"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentEnd="false">
+        android:layout_marginBottom="43dp">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -87,5 +90,14 @@
             android:layout_alignLeft="@+id/rBUser02"
             android:layout_alignStart="@+id/rBUser02" />
     </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="刪除帳號"
+        android:id="@+id/BdeleteData"
+        android:layout_alignBottom="@+id/Benter"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

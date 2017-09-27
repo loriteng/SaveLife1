@@ -6,11 +6,16 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
+
+import java.util.Random;
 
 public class DialogActivity extends Activity {
 
     private Context context;
+    public static final String KEY = "DataSet";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +40,12 @@ public class DialogActivity extends Activity {
         builder.create().show();
     }
 
-    //勝利
-    private void winDialog() {
+    //勝利結算訊息
+    public void winDialog() {
+        try {
+            animalsave();
+        }catch (Exception e){Toast.makeText(this,"讀不到animalsave",Toast.LENGTH_SHORT).show();}
         String option[] = {"繼續遊戲", "回首頁", "前往圖鑑"};
-
         AlertDialog.Builder builder = new Builder(context);
         builder.setTitle("勝利");
         builder.setIcon(android.R.drawable.btn_star_big_on);
@@ -62,10 +69,9 @@ public class DialogActivity extends Activity {
         builder.create().show();
     }
 
-    //失敗
-    private void loseDialog() {
+    //任務失敗訊息（時間到）
+    public void loseDialog() {
         String option[] = {"繼續遊戲", "回首頁", "前往圖鑑"};
-
         AlertDialog.Builder builder = new Builder(context);
         builder.setTitle("失敗");
         builder.setIcon(android.R.drawable.btn_star_big_off);
@@ -89,4 +95,58 @@ public class DialogActivity extends Activity {
         builder.create().show();
     }
 
+    public void animalsave(){
+        int setTtime = getDate("SaveTime");
+        int setLsary = getDate("SaveLsRow") * getDate("SaveLsColume");
+        Random r = new Random();
+        switch (setTtime){
+            case 90:
+                switch (setLsary){
+                    case 20:
+                        Toast.makeText(this,"90秒 20格",Toast.LENGTH_SHORT).show();
+                        break;
+                    case 24:
+                        Toast.makeText(this,"90秒 24格",Toast.LENGTH_SHORT).show();
+                        break;
+                    case 28:
+                        Toast.makeText(this,"90秒 28格",Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                break;
+            case 60:
+                switch (setLsary){
+                    case 20:
+                        Toast.makeText(this,"60秒 20格",Toast.LENGTH_SHORT).show();
+                        break;
+                    case 24:
+                        Toast.makeText(this,"60秒 24格",Toast.LENGTH_SHORT).show();
+                        break;
+                    case 28:
+                        Toast.makeText(this,"60秒 28格",Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                break;
+            case 30:
+                switch (setLsary){
+                    case 20:
+                        Toast.makeText(this,"30秒 20格",Toast.LENGTH_SHORT).show();
+                        break;
+                    case 24:
+                        Toast.makeText(this,"30秒 24格",Toast.LENGTH_SHORT).show();
+                        break;
+                    case 28:
+                        Toast.makeText(this,"30秒 28格",Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                break;
+        }
+    }
+
+    //設定檔讀取
+    //取得DateSet.xml暫存資料檔"SaveLsRow"和"SaveLsColume"
+    public int getDate(String key) {
+        SharedPreferences spref = getApplication().getSharedPreferences(KEY, Context.MODE_PRIVATE);
+        int strValue = spref.getInt(key, 0);
+        return strValue;
+    }
 }

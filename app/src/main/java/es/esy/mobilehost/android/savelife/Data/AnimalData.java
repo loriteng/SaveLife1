@@ -5,27 +5,22 @@ package es.esy.mobilehost.android.savelife.Data;
  */
 //動物卡圖資料庫
 public class AnimalData {
+    int AnimalCard_01 = 0,AnimalCard_02 = 0,AnimalCard_03 = 0,AnimalCard_04 = 0;
+    int AnimalCard_05 = 0,AnimalCard_06 = 0,AnimalCard_07 = 0,AnimalCard_08 = 0;
+    int AnimalCard_09 = 0,AnimalCard_10 = 0,AnimalCard_11 = 0,AnimalCard_12 = 0;
+    int AnimalCard_13 = 0,AnimalCard_14 = 0,AnimalCard_15 = 0,AnimalCard_16 = 0;
+    int AnimalCard_17 = 0,AnimalCard_18 = 0,AnimalCard_19 = 0,AnimalCard_20 = 0;
 
-    public void getAnimalData() {
-        boolean AnimalCard_01 = false;
-        boolean AnimalCard_02 = false;
-        boolean AnimalCard_03 = false;
-        boolean AnimalCard_04 = false;
-        boolean AnimalCard_05 = false;
-        boolean AnimalCard_06 = false;
-        boolean AnimalCard_07 = false;
-        boolean AnimalCard_08 = false;
-        boolean AnimalCard_09 = false;
-        boolean AnimalCard_10 = false;
-        boolean AnimalCard_11 = false;
-        boolean AnimalCard_12 = false;
-        boolean AnimalCard_13 = false;
-        boolean AnimalCard_14 = false;
-        boolean AnimalCard_15 = false;
-        boolean AnimalCard_16 = false;
-        boolean AnimalCard_17 = false;
-        boolean AnimalCard_18 = false;
-        boolean AnimalCard_19 = false;
-        boolean AnimalCard_20 = false;
+    int Animas[]  = {
+            AnimalCard_01, AnimalCard_02, AnimalCard_03, AnimalCard_04,
+            AnimalCard_05, AnimalCard_06, AnimalCard_07, AnimalCard_08,
+            AnimalCard_09, AnimalCard_10, AnimalCard_11, AnimalCard_12,
+            AnimalCard_13, AnimalCard_14, AnimalCard_15, AnimalCard_16,
+            AnimalCard_17, AnimalCard_18, AnimalCard_19, AnimalCard_20,
+                };
+
+    public int aa(int x){
+        return Animas[x];
     }
+
 }

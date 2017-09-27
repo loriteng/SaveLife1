@@ -35,7 +35,7 @@ public class HomeActivity extends MenuActivity {
 
         //帳號名稱設定
         TextView textView = (TextView) findViewById(R.id.showName);
-        textView.setText(getData("name"));
+        textView.setText("冒險家:" + getData("name"));
 
         //背景音樂播放
         mediaPlayer = MediaPlayer.create(this, R.raw.nothing_on_you);
@@ -47,7 +47,6 @@ public class HomeActivity extends MenuActivity {
         });
 
 
-
         //進入遊戲
         Button hometoplaygame = (Button) findViewById(R.id.BStart);
         hometoplaygame.setOnClickListener(new View.OnClickListener() {
@@ -57,16 +56,6 @@ public class HomeActivity extends MenuActivity {
                 startActivity(new Intent().setClass(HomeActivity.this, DestActivity.class));
             }
         });
-
-//        //設定
-//        Button home2setup = (Button) findViewById(R.id.BSetup);
-//        home2setup.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent().setClass(HomeActivity.this, SetupActivity.class));
-//            }
-//        });
-
 
     }
 
