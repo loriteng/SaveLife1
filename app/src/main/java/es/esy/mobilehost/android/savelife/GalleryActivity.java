@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -16,8 +19,12 @@ import android.widget.GridView;
 import es.esy.mobilehost.android.savelife.Data.UserDataDAO;
 
 public class GalleryActivity extends MenuActivity {
-    static GalleryActivity galleryActivity;
 
+    private MediaPlayer mediaPlayer;
+    private SoundPool soundPool;
+    private int sound01;
+
+    static GalleryActivity galleryActivity;
     private GridView simpleGrid;
     public static final String KEY = "DataSet";
     //DB資料的內容讀取 :
@@ -37,6 +44,11 @@ public class GalleryActivity extends MenuActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
         galleryActivity = this;
+
+        //設定按按鈕就出現音效聲
+        soundPool = new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);
+        sound01 = soundPool.load(this, R.raw.sound01, 1);
+
         mCursor.moveToPosition(getDate("id"));
         simpleGrid = (GridView) findViewById(R.id.simpleGridView);
         GalleryAdapter customAdapter = new GalleryAdapter(getApplicationContext(), photoList());
@@ -45,6 +57,7 @@ public class GalleryActivity extends MenuActivity {
         simpleGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                soundPool.play(sound01,1 ,1, 0, 0, 1); //點擊按鈕出現音效
                 // set an Intent to Another Activity
                 if(photoList()[position] != R.drawable.galleryback) {
                     Intent intent = new Intent(GalleryActivity.this, GalleryDetail.class);
