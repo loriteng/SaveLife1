@@ -26,17 +26,17 @@ public class HomeActivity extends MenuActivity {
     private SoundPool soundPool;
     private int sound01;
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mediaPlayer.start();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mediaPlayer.pause();
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        mediaPlayer.start();
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        mediaPlayer.pause();
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
