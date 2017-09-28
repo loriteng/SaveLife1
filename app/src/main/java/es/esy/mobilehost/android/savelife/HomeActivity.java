@@ -8,6 +8,8 @@ import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +27,18 @@ public class HomeActivity extends MenuActivity {
     private int sound01;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        mediaPlayer.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mediaPlayer.pause();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -33,12 +47,20 @@ public class HomeActivity extends MenuActivity {
         soundPool = new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);
         sound01 = soundPool.load(this, R.raw.sound01, 1);
 
+        //電話狀態的Listener
+        MyPhoneStateListener myPhoneStateListener = new MyPhoneStateListener();
+        //取得TelephonyManager
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        //將電話狀態的Listener加到取得TelephonyManager
+        telephonyManager.listen(myPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+
         //帳號名稱設定
         TextView textView = (TextView) findViewById(R.id.showName);
         textView.setText("冒險家:" + getData("name"));
 
         //背景音樂播放
-        mediaPlayer = MediaPlayer.create(this, R.raw.nothing_on_you);
+        mediaPlayer = MediaPlayer.create(this, R.raw.sugar);
+        mediaPlayer.setLooping(true);
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
@@ -76,4 +98,28 @@ public class HomeActivity extends MenuActivity {
         String strValue = spref.getString(key, null);
         return strValue;
     }
+
+    public class MyPhoneStateListener extends PhoneStateListener {
+        @Override
+        public void onCallStateChanged(int state, String phoneNumber) {
+            switch (state) {
+                //電話狀態是閒置的
+                case TelephonyManager.CALL_STATE_IDLE:
+                    mediaPlayer.start();
+                    break;
+                //電話狀態是接起的
+                case TelephonyManager.CALL_STATE_OFFHOOK:
+                    Toast.makeText(HomeActivity.this, "正接起電話…", Toast.LENGTH_LONG).show();
+                    break;
+                //電話狀態是響起的
+                case TelephonyManager.CALL_STATE_RINGING:
+                    Toast.makeText(HomeActivity.this, phoneNumber + "正打電話來…", Toast.LENGTH_LONG).show();
+                    mediaPlayer.pause();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
 }

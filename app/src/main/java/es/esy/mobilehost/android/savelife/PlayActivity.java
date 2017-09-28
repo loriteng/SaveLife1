@@ -164,7 +164,6 @@ public class PlayActivity extends AppCompatActivity {
     private TableRow createRow(int y) {
         TableRow row = new TableRow(context);
         row.setHorizontalGravity(Gravity.CENTER);
-
         for (int x = 0; x < getDate("SaveLsColume"); x++) {
             row.addView(createImageButton(x, y));
         }
@@ -175,6 +174,8 @@ public class PlayActivity extends AppCompatActivity {
         Button button = new Button(context);
         button.setBackgroundDrawable(backImage);
         button.setId(100 * x + y);
+//        TableLayout tableLayout = (TableLayout)findViewById(R.id.GameLayout);
+//        button.setHeight(l/4);
         button.setOnClickListener(buttonListener);
         return button;
     }
