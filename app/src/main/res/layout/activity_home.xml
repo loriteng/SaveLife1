@@ -30,38 +30,113 @@
 
     <ViewFlipper
         android:id="@+id/viewflipper"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
         android:autoStart="true"
         android:flipInterval="2000"
-
         android:layout_below="@+id/intro"
         android:layout_centerHorizontal="true">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
             android:src="@drawable/p0" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
             android:src="@drawable/p1" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
             android:src="@drawable/p2" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
             android:src="@drawable/p3" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
             android:src="@drawable/p4" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
             android:src="@drawable/p5" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p6" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p7" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p8" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p9" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p10" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p11" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p12" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p13" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p14" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p15" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p16" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p17" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p18" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p19" />
 
     </ViewFlipper>
 

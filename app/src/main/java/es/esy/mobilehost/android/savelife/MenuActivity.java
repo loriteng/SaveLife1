@@ -34,6 +34,7 @@ public class MenuActivity extends AppCompatActivity {
         //播放音效
         soundPool = new SoundPool(4, AudioManager.STREAM_SYSTEM,0);
         sound01 = soundPool.load(this, R.raw.sound01, 0);
+
     }
 
     //建立OptionMenu
@@ -157,7 +158,6 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
         builder.create().show();
-
     }
 
 

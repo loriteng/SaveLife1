@@ -63,8 +63,6 @@ public class DestActivity extends AppCompatActivity {
             }else {
                 Toast.makeText(view.getContext(), "請選擇難度和時間", Toast.LENGTH_LONG).show();
             }
-
-
         }
     }
 
