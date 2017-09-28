@@ -34,6 +34,7 @@ public class MenuActivity extends AppCompatActivity {
         //播放音效
         soundPool = new SoundPool(4, AudioManager.STREAM_SYSTEM,0);
         sound01 = soundPool.load(this, R.raw.sound01, 0);
+
     }
 
     //建立OptionMenu
@@ -49,18 +50,14 @@ public class MenuActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_gallery:  //進入"動物圖鑑"
                 gallery();
-                //Toast.makeText(this, "menu_gallery", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menu_volume: //進入"聲音調整"
                 soundVolume1();
-                //Toast.makeText(this, "menu_volume", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menu_copyright: //進入"資料出處"
                 copyright();
-                //Toast.makeText(this, "menu_copyright", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menu_developer: //進入"製作團隊"
-                //Toast.makeText(this, "menu_developer", Toast.LENGTH_SHORT).show();
                 developer();
                 break;
             default:
@@ -71,6 +68,7 @@ public class MenuActivity extends AppCompatActivity {
 
     //動物圖鑑
     private void gallery(){
+        soundPool.play(sound01,1 ,1, 0, 0, 1); //點擊按鈕出現音效
         Intent intent = new Intent();
         intent.setClass(this, GalleryActivity.class);
         startActivity(intent);
@@ -78,12 +76,15 @@ public class MenuActivity extends AppCompatActivity {
 
     //資料出處
     private void copyright() {
+        soundPool.play(sound01,1 ,1, 0, 0, 1); //點擊按鈕出現音效
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.menu_copyright);
         builder.setMessage(R.string.copyright_info);
         builder.setPositiveButton(R.string.okay,
                 new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {}
+                    public void onClick(DialogInterface dialog, int which) {
+                        soundPool.play(sound01,1 ,1, 0, 0, 1); //點擊按鈕出現音效
+                    }
                 }
         );
         builder.show();
@@ -91,12 +92,15 @@ public class MenuActivity extends AppCompatActivity {
 
     //製作團隊
     private void developer() {
+        soundPool.play(sound01,1 ,1, 0, 0, 1); //點擊按鈕出現音效
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.menu_developer);
         builder.setMessage(R.string.developer_info);
         builder.setPositiveButton(R.string.okay,
                 new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {}
+                    public void onClick(DialogInterface dialog, int which) {
+                        soundPool.play(sound01,1 ,1, 0, 0, 1); //點擊按鈕出現音效
+                    }
                 }
         );
         builder.show();
@@ -105,7 +109,7 @@ public class MenuActivity extends AppCompatActivity {
     //聲音調整
     // 音量設定 View
     public void soundVolume1() {
-
+        soundPool.play(sound01,1 ,1, 0, 0, 1); //點擊按鈕出現音效
         // 自定Layout
         LayoutInflater inflater = getLayoutInflater();
         // 將 xml layout 轉換成視圖 View 物件
@@ -142,23 +146,22 @@ public class MenuActivity extends AppCompatActivity {
         builder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                soundPool.play(sound01,1 ,1, 0, 0, 1); //點擊按鈕出現音效
                 dialog.dismiss();
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                soundPool.play(sound01,1 ,1, 0, 0, 1); //點擊按鈕出現音效
                 dialog.dismiss();
             }
         });
         builder.create().show();
-
     }
 
 
     // 調整聲音大小
-
     private class MyVolControlOnSeekBarChangeListener implements SeekBar.OnSeekBarChangeListener {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress,

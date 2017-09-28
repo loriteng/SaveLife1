@@ -10,10 +10,6 @@
         android:title="@string/menu_volume"
         app:showAsAction="never"/>
 
-    <item android:id="@+id/menu_reset"
-        android:title="@string/menu_reset"
-        app:showAsAction="never"/>
-
     <item android:id="@+id/menu_copyright"
         android:title="@string/menu_copyright"
         app:showAsAction="never"/>

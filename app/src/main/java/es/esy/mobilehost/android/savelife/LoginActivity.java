@@ -7,6 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +25,19 @@ public class LoginActivity extends Activity {
     private UserDataDAO userDataDAO;
     private static final String KEY = "DataSet";
 
+    private MediaPlayer mediaPlayer;
+    private SoundPool soundPool;
+    private int sound01;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //播放音效
+        soundPool = new SoundPool(4, AudioManager.STREAM_SYSTEM,0);
+        sound01 = soundPool.load(this, R.raw.sound01, 0);
+
         setIDData();
         // 建立資料存取物件
         userDataDAO = new UserDataDAO(this);
@@ -45,6 +57,7 @@ public class LoginActivity extends Activity {
     private class Benter implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            soundPool.play(sound01,1 ,1, 0, 0, 1); //點擊按鈕出現音效
             RadioGroup Iwant = (RadioGroup) findViewById(R.id.radioGroup);
             UserDataDAO userDataDAO = new UserDataDAO(LoginActivity.this);
             Cursor mCursor = userDataDAO.getAllCursor();
@@ -89,10 +102,12 @@ public class LoginActivity extends Activity {
             }
         }
     }
+
     //刪除帳號鈕的判斷事件
     private class DeleteData implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            soundPool.play(sound01,1 ,1, 0, 0, 1); //點擊按鈕出現音效
             RadioGroup Iwant = (RadioGroup) findViewById(R.id.radioGroup);
             UserDataDAO userDataDAO = new UserDataDAO(LoginActivity.this);
             Cursor mCursor = userDataDAO.getAllCursor();
@@ -128,12 +143,14 @@ public class LoginActivity extends Activity {
             }
         }
     }
+
     //新增帳號鈕的判斷事件
     private class NewUser implements View.OnClickListener {
         UserDataDAO userDataDAO = new UserDataDAO(LoginActivity.this);
         Cursor mCursor = userDataDAO.getAllCursor();
         @Override
         public void onClick(View view) {
+            soundPool.play(sound01,1 ,1, 0, 0, 1); //點擊按鈕出現音效
             if (!mCursor.moveToPosition(2)){
             startActivity(new Intent().setClass(LoginActivity.this, NewUserActivity.class));
             finish();
@@ -153,6 +170,7 @@ public class LoginActivity extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog,
                                                 int which) {
+                                soundPool.play(sound01,1 ,1, 0, 0, 1); //點擊按鈕出現音效
                                 userDataDAO.delete(id);
                                 startActivity(new Intent().setClass(LoginActivity.this, LoginActivity.class));
                                 finish();
@@ -164,6 +182,7 @@ public class LoginActivity extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog,
                                                 int which) {
+                                soundPool.play(sound01,1 ,1, 0, 0, 1); //點擊按鈕出現音效
 
                             }
                         }).show();
@@ -227,7 +246,6 @@ public class LoginActivity extends Activity {
                     Toast.LENGTH_SHORT).show();
         }
     }
-
 
     //DB跟XML的資料取得跟讀取的方法
     public void setStringData(String key, String value) {
