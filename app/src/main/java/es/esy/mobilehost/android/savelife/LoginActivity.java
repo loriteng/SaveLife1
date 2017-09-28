@@ -89,6 +89,7 @@ public class LoginActivity extends Activity {
             }
         }
     }
+
     //刪除帳號鈕的判斷事件
     private class DeleteData implements View.OnClickListener {
         @Override
@@ -128,6 +129,7 @@ public class LoginActivity extends Activity {
             }
         }
     }
+
     //新增帳號鈕的判斷事件
     private class NewUser implements View.OnClickListener {
         UserDataDAO userDataDAO = new UserDataDAO(LoginActivity.this);
@@ -227,7 +229,6 @@ public class LoginActivity extends Activity {
                     Toast.LENGTH_SHORT).show();
         }
     }
-
 
     //DB跟XML的資料取得跟讀取的方法
     public void setStringData(String key, String value) {
