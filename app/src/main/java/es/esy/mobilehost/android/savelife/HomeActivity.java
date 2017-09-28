@@ -60,7 +60,7 @@ public class HomeActivity extends MenuActivity {
 
         //背景音樂播放
         mediaPlayer = MediaPlayer.create(this, R.raw.sugar);
-        mediaPlayer.setLooping(true);
+//        mediaPlayer.setLooping(true);
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
